@@ -27,10 +27,13 @@ public class CurrencyConversionController {
 		CurrencyConversionBean response=responseEntity.getBody();
 		return new CurrencyConversionBean(
 				response.getId(), 
-				from, to, 
+				from, 
+				to, 
 				response.getConversionMultiple(), 
-				quantity, quantity.multiply(response.getConversionMultiple()), 
-				response.getPort());
+				quantity, 
+				quantity.multiply(response.getConversionMultiple()), 
+				response.getPort()
+				);
 	}
 	@GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
 	public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from,@PathVariable String to,@PathVariable BigDecimal quantity) {
@@ -38,9 +41,12 @@ public class CurrencyConversionController {
 		CurrencyConversionBean response=currencyExchangeServiceProxy.retriveExchangeValue(from, to);
 		return new CurrencyConversionBean(
 				response.getId(), 
-				from, to, 
+				from, 
+				to, 
 				response.getConversionMultiple(), 
-				quantity, quantity.multiply(response.getConversionMultiple()), 
-				response.getPort());
+				quantity, 
+				quantity.multiply(response.getConversionMultiple()), 
+				response.getPort()
+				);
 	}
 }
